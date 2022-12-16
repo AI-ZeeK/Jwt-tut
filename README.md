@@ -2,6 +2,6 @@
 
 ## Things to do
 
--[x] Create DB
--[] Authorise API
--[]
+[x] Create DB
+[] Authorise API
+[]
