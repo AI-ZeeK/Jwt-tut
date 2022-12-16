@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
 	const [text, setText] = useState("");
 
-	return <div className="App"></div>;
+	return <div className="App">grey</div>;
 }
 
 export default App;
