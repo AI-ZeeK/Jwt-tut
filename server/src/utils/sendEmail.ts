@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const sendMail = (options: any) => {
+export const sendEmail = (options: any) => {
 	const transporter = nodemailer.createTransport({
 		service: process.env.EMAIL_SERVICE,
 		auth: {

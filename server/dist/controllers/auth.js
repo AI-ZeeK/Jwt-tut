@@ -1,6 +1,8 @@
 import User from "../models/Users.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import bcrypt from "bcryptjs";
+import { sendEmail } from "../utils/sendEmail.js";
+import crypto from "crypto";
 export const register = async (req, res, next) => {
     const { username, email, password } = req.body;
     try {
@@ -44,7 +46,6 @@ export const forgotPassword = async (req, res, next) => {
             return next(new ErrorResponse("Email could not be sent", 404));
         }
         const resetToken = user.getResetPasswordToken();
-        console.log(resetToken, "errjncjsn");
         await user.save();
         const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`;
         const message = `
@@ -53,14 +54,46 @@ export const forgotPassword = async (req, res, next) => {
 		<a href=${resetUrl} clicktracking='off'>${resetUrl}</a>
 		`;
         try {
+            await sendEmail({
+                to: user.email,
+                subject: "Password Reset Request",
+                text: message,
+            });
+            return res.status(200).json({ success: true, data: "Email Sent" });
         }
         catch (error) {
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpire = undefined;
+            await user.save();
+            return next(new ErrorResponse("Email could not be synced", 500));
         }
     }
-    catch (error) { }
+    catch (error) {
+        next(error);
+    }
 };
-export const resetPassword = (req, res, next) => {
-    res.send("reset password Route");
+export const resetPassword = async (req, res, next) => {
+    const resetPasswordToken = crypto
+        .createHash("sha256")
+        .update(req.params.resetToken)
+        .digest("hex");
+    try {
+        const user = await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpire: { $gt: Date.now() },
+        });
+        if (!user) {
+            return next(new ErrorResponse("Invalid Reset Token", 400));
+        }
+        user.password = req.body.password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save();
+        res.status(201).json({ success: true, data: "Password Reset Success" });
+    }
+    catch (error) {
+        next(error);
+    }
 };
 const sendToken = (user, statusCode, res) => {
     const token = user.getSignedToken();

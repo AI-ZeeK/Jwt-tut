@@ -6,6 +6,7 @@ import errorHandler from "./middleware/Error.js";
 import privateRouter from "./routes/private.js";
 import connectDB from "./config/db.js";
 const clrs = colors;
+
 dotenv.config();
 connectDB();
 const app = express();
