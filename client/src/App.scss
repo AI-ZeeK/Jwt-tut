@@ -1,0 +1,182 @@
+@mixin Align {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10rem 30% 29% 30rem/ 24rem 30rem 19rem 50%;
+}
+$colorP: "green";
+.primary {
+	width: 30rem;
+	height: 30rem;
+	background-color: azure;
+	transition: all 400ms ease;
+	position: relative;
+	animation: RotateX 2000ms 100ms linear infinite;
+	perspective: 1000px;
+	perspective-origin: left;
+	overflow: hidden;
+	z-index: 5;
+	@include Align;
+	div {
+		position: absolute;
+		top: 0%;
+		left: 0%;
+		bottom: 0;
+		// transform: translate(-50%, -50%);
+		width: 28rem;
+		height: 28rem;
+		background-color: aqua;
+		rotate: 45deg;
+		animation: RotateY 1000ms 100ms reverse linear infinite;
+		overflow: hidden;
+		// @include Align;
+		// position: relative;
+
+		ul {
+			$color: bisque;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 24rem;
+			height: 24rem;
+			background-color: bisque;
+			rotate: 45deg;
+			animation: RotateX 800ms 100ms linear infinite;
+			transform: perspective(9cm);
+			overflow: hidden;
+			@include Align;
+
+			li {
+				$colorP: thistle;
+				position: absolute;
+				top: 0%;
+				left: 0%;
+				bottom: 0;
+				width: 22rem;
+				height: 22rem;
+				background-color: thistle;
+				rotate: 45deg;
+				animation: RotateY 600ms 100ms reverse linear infinite;
+				transform: perspective(10rem);
+				overflow: hidden;
+				@include Align;
+			}
+		}
+	}
+}
+.secondary {
+	width: 30rem;
+	height: 30rem;
+	background-color: #855ee0;
+	transition: all 400ms ease;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	animation: RotateX 2000ms 100ms linear infinite;
+	perspective: 1000px;
+	perspective-origin: left;
+	overflow: hidden;
+	transform: translateY(-20rem);
+	z-index: 5;
+	scale: 0.4;
+	@include Align;
+	div {
+		position: absolute;
+		top: 0%;
+		left: 0%;
+		bottom: 0;
+		// transform: translate(-50%, -50%);
+		width: 28rem;
+		height: 28rem;
+		background-color: #4e9676;
+		rotate: 45deg;
+		transition: all 400ms ease;
+		animation: RotateY 1000ms 100ms reverse linear infinite;
+		overflow: hidden;
+		// @include Align;
+		// position: relative;
+
+		ul {
+			$color: bisque;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 24rem;
+			height: 24rem;
+			background-color: #f58225;
+			transition: all 400ms ease;
+			rotate: 45deg;
+			animation: RotateX 800ms 100ms linear infinite;
+			transform: perspective(9cm);
+			transition: all 400ms ease;
+			overflow: hidden;
+			z-index: -50;
+			@include Align;
+
+			li {
+				$colorP: thistle;
+				position: absolute;
+				top: 0%;
+				left: 0%;
+				bottom: 0;
+				width: 22rem;
+				height: 22rem;
+				background-color: #284db0;
+				rotate: 45deg;
+				animation: RotateY 600ms 100ms reverse linear infinite;
+				transform: perspective(10rem);
+				transition: all 400ms ease;
+				overflow: hidden;
+				z-index: 40;
+				@include Align;
+			}
+		}
+	}
+}
+
+@keyframes RotateX {
+	from {
+		rotate: 0deg;
+		transition: all 400ms ease;
+	}
+
+	to {
+		rotate: 360deg;
+		background-color: lighten(bisque, 10%);
+		transition: all 400ms ease;
+	}
+}
+@keyframes RotateY {
+	from {
+		rotate: 0deg;
+		transition: all 400ms ease;
+	}
+
+	to {
+		rotate: 360deg;
+		background-color: lighten(#6be3d1, 30%);
+		transition: all 400ms ease;
+	}
+}
+
+.eye {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	background-color: grey;
+	padding: 2rem;
+	position: relative;
+	z-index: -4;
+}
+
+.pupil {
+	background-color: black;
+	// position: absolute;
+	width: 34rem;
+	height: 100%;
+	border-radius: 49%;
+	overflow: hidden;
+	z-index: -1;
+	position: relative;
+}
