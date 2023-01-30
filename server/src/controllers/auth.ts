@@ -69,9 +69,9 @@ export const forgotPassword: ReqRes = async (req, res, next) => {
 		`;
 
 		try {
-			await sendEmail({
-				to: user.email,
+			sendEmail({
 				subject: "Password Reset Request",
+				to: user.email,
 				text: message,
 			});
 

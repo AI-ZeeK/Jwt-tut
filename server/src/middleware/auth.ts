@@ -15,7 +15,7 @@ const protect: ReqRes = async (req, res, next) => {
 		token = req.headers.authorization.split(" ")[1];
 	}
 	if (!token) {
-		return next(new ErrorResponse("Not authorised tonaccess this route", 401));
+		return next(new ErrorResponse("Not authorised to access this route", 401));
 	}
 
 	try {
